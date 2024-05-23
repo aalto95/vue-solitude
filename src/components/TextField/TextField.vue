@@ -28,20 +28,29 @@ const { textarea, input } = useTextareaAutosize();
 </script>
 
 <template>
-  <fieldset class="fieldset" :class="{ 'fieldset--focused': focused }">
-    <legend class="legend" :class="{ 'legend--hidden': !focused && !model }">
+  <fieldset
+    class="sol-text-field"
+    :class="{ 'sol-text-field--focused': focused }"
+  >
+    <legend
+      class="sol-text-field__legend"
+      :class="{ 'sol-text-field__legend--hidden': !focused && !model }"
+    >
       {{ label }}
     </legend>
     <label
-      class="label"
-      :class="{ 'label--up': focused || model, 'label--focused': focused }"
+      class="sol-text-field__label"
+      :class="{
+        'sol-text-field__label--up': focused || model,
+        'sol-text-field__label--focused': focused,
+      }"
       >{{ label }}</label
     >
     <textarea
       ref="textarea"
       v-if="multiline"
       v-model="model"
-      class="input"
+      class="sol-text-field__input"
       @focus="focused = true"
       @blur="focused = false"
       @input="input = model"
@@ -49,7 +58,7 @@ const { textarea, input } = useTextareaAutosize();
     <input
       v-else
       v-model="model"
-      class="input"
+      class="sol-text-field__input"
       type="text"
       :disabled="disabled"
       @focus="focused = true"

@@ -26,13 +26,37 @@ export const Default: StoryObj<typeof TextField> = {
 
       return { args, value, handleInput };
     },
-    template: html`<form>
+    template: html`
       <TextField
         v-bind="args"
         :value="input"
         @input="e => handleInput(e.target.value)"
       />
-    </form>`,
+    `,
+  }),
+};
+
+export const Multiline: StoryObj<typeof TextField> = {
+  render: (args) => ({
+    components: { TextField },
+    setup() {
+      const value = ref("");
+
+      function handleInput(newValue: string) {
+        value.value = newValue;
+      }
+
+      return { args, value, handleInput };
+    },
+    template: html`
+      <TextField
+        style="min-height: 300px"
+        v-bind="args"
+        :multiline="true"
+        :value="input"
+        @input="e => handleInput(e.target.value)"
+      />
+    `,
   }),
 };
 
