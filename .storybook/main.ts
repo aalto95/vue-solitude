@@ -2,16 +2,18 @@ import { mergeConfig } from "vite";
 import type { StorybookConfig } from "@storybook/vue3-vite";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@chromatic-com/storybook",
   ],
-  framework: "@storybook/vue3-vite",
-  core: {
-    builder: "@storybook/builder-vite",
+  framework: {
+    name: "@storybook/vue3-vite",
+    options: {},
   },
+  core: {},
   staticDirs: [
     // {
     //     from: '../src/assets/fonts',
@@ -25,7 +27,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, {
       // Use the same "resolve" configuration as your app
-      resolve: (await import("../vite.config.js")).default.resolve,
+      resolve: (await import("../vite.config.js")).default,
       // Add dependencies to pre-optimization
       optimizeDeps: {
         include: ["storybook-dark-mode"],
@@ -37,9 +39,7 @@ const config: StorybookConfig = {
       },
     });
   },
-  docs: {
-    autodocs: true,
-  },
+  docs: {},
 };
 
 export default config;
